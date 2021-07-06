@@ -111,7 +111,7 @@ class App extends React.Component {
           </Flex>
 
           {/* Config pannel */}
-          <Flex flexDir='column' alignItems='center' w={['100%', '30%']} h='100%' overflow='auto'>
+          <Flex flexDir='column' alignItems='center' w={['100%', '30%']} h={['100%']} overflow='auto'>
             <ConfigPanel setSelectedModel={this.setSelectedModel}
               onSubmit={this.onSubmit}
               onDownload={this.onDownload}
@@ -125,7 +125,7 @@ class App extends React.Component {
 
           {/* Examples pannel */}
         </Flex>
-        <Flex w='100%' h='25%' >
+        <Flex w='100%' h='25%' mt='.5vh'>
           <ExamplesPanel
             onExampleImageClick={this.onExampleImageClick} />
         </Flex>
