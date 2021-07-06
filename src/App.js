@@ -93,12 +93,13 @@ class App extends React.Component {
     return <ChakraProvider theme={theme}>
       <Flex h={'100vh'} flexDir='column' overflow='hidden'>
         {/* Top side */}
-        <Flex h={'75%'} w={'100vw'} flexDir='row' justifyContent='space-between'>
+        <Flex h={'75%'} w={'100vw'} flexDir={['column', 'row']} justifyContent='space-between'>
 
           {/* Dropzone and image */}
           <Flex
             m='.5%'
-            w='70%'
+            w={['100%', '70%']}
+            h={['99%']}
             border='3px'
             borderColor='blue.200'
             borderStyle='dashed'
@@ -110,7 +111,7 @@ class App extends React.Component {
           </Flex>
 
           {/* Config pannel */}
-          <Flex flexDir='column' alignItems='center' w='30%' h='100%'>
+          <Flex flexDir='column' alignItems='center' w={['100%', '30%']} h='100%' overflow='auto'>
             <ConfigPanel setSelectedModel={this.setSelectedModel}
               onSubmit={this.onSubmit}
               onDownload={this.onDownload}

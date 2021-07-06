@@ -1,7 +1,33 @@
 import React, { useCallback } from 'react'
 import { useDropzone } from 'react-dropzone'
-import { Flex, Image, useBoolean, useColorModeValue, Button, Spinner } from '@chakra-ui/react'
-import { FiMaximize, FiMinimize} from 'react-icons/fi'
+import { Flex, Image, useBoolean, useColorModeValue, Button, Spinner, Heading } from '@chakra-ui/react'
+import { FiMaximize, FiMinimize } from 'react-icons/fi'
+
+const EmptyState = () => {
+    return (
+        <Flex flexDir='column' justifyContent='space-evenly' alignItems='baseline' height='100%' padding='3%'>
+            <Flex>
+            <Heading size='xl' letterSpacing='tight'>
+                Yolov5: Object detection deep learning model
+            </Heading>
+            </Flex>
+            <Flex flexDir='column'>
+            <Heading size='l' letterSpacing='tight'>
+                Option 1: BYOI (bring your own image)
+            </Heading>
+            <p>Drag 'n' drop some .jpg image here, or click to select files</p>
+            </Flex>
+            <Flex flexDir='column'>
+            <Heading size='l' letterSpacing='tight'>
+                Option 2: Choose an example below
+            </Heading>
+            <p>Click on an example below , select the default or specific weights and submit</p>
+            <p>You can leave the default confidence and IOU thresholds intact</p>
+            </Flex>
+        </Flex>
+    )
+}
+
 
 export const Dropzone = ({ selectedImage, setImages }) => {
     const [isLoading, setLoading] = useBoolean()
@@ -28,20 +54,20 @@ export const Dropzone = ({ selectedImage, setImages }) => {
 
     const renderChildrenJSX = () => {
         return (
-            <Flex w='100%' flexDir='column' justifyContent='space-evenly' alignItems= 'center'>
+            <Flex w='100%' flexDir='column' justifyContent='space-evenly' alignItems='center'>
                 {/* this renders just one item, either a message or an image.  */}
                 {isDragActive ?
                     <p>Drop the files here ...</p>
                     : selectedImage ?
-                        <Image src={selectedImage} fit= 'contain' border='0px solid red' 
-                        justifySelf='center' alignSelf= {isImageExpanded ? 'stretch' : 'center'}
-                        maxH='100%'/>
-                        : <p>Drag 'n' drop some files here, or click to select files</p>}
+                        <Image src={selectedImage} fit='contain' border='0px solid red'
+                            justifySelf='center' alignSelf={isImageExpanded ? 'stretch' : 'center'}
+                            maxH='100%' />
+                        : <EmptyState />}
             </Flex>)
     }
     return (
         <Flex {...getRootProps()} flexDir='row-reverse' bg={bgDropzone} w='100%'>
-            <input {...getInputProps()} />
+            <input {...getInputProps() } accept="image/*" inputMode='image'/>
             {renderChildrenJSX()}
             <Flex position='absolute' alignSelf='start'>
                 <Button onClick={(event) => {
@@ -51,9 +77,9 @@ export const Dropzone = ({ selectedImage, setImages }) => {
                 }}
                     zIndex={1}
                     leftIcon={isImageExpanded ? <FiMinimize /> : <FiMaximize />}
-                    variant='ghost' _focus={{border: '0px'}}/>
+                    variant='ghost' _focus={{ border: '0px' }} />
             </Flex>
-            {isLoading? <Spinner/> : ''}
+            {isLoading ? <Spinner /> : ''}
         </Flex>
     )
 }

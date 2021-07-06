@@ -45,7 +45,7 @@ export const ConfigPanel = ({ setSelectedModel,
             </Flex>
             </Flex>
             <Flex>
-            <Text>You can choose between default weights and weights tailored for medical instruments (scalpels, tweezers and scissors)</Text>
+            <Text>You can choose between default parameters for normal images and weights tailored for medical instruments (scalpels, tweezers and scissors)</Text>
             </Flex>
             {/* select config */}
             <ModelSelector setSelectedModel={setSelectedModel} />
