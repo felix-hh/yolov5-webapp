@@ -1,0 +1,7 @@
+{ "Source": "data:image/jpeg;base64,/9j/4AA...", 
+"IsPath": "False", 
+"Weights": "granular", 
+"Save": "True", 
+"InferenceImageSize": 640, 
+"ConfidenceThreshold": 0.25, 
+"IouThreshold": 0.45 }

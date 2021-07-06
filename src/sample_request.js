@@ -9,5 +9,3 @@ export const sampleRequest = {
     "ConfidenceThreshold": 0.25,
     "IouThreshold": 0.45
   }
-
-console.log(sampleRequest)

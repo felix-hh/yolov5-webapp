@@ -1,10 +1,7 @@
-import AWS, { Credentials, LambdaClientConfig } from 'aws-sdk'
+import AWS, { Credentials, } from 'aws-sdk'
 import { keys } from '../secrets'
-import { LambdaClient, Invoke, InvokeCommand } from "@aws-sdk/client-lambda";
-import { sampleRequest } from "../sample_request"
 
 const DEFAULT_REGION = 'us-east-1'
-const IMAGE_TYPE_REGEX = /^data:image\/[a-z]+;base64,/
 
 // Configure AWS SDK for JavaScript
 const credentials = new Credentials(keys.aws_access_key_id, keys.aws_secret_access_key)
@@ -14,25 +11,23 @@ const lambda = new AWS.Lambda({
   apiVersion: '2015-03-31',
 })
 
-export const callLambda = (image, setSelectedImage) => {
-  image = image.replace(IMAGE_TYPE_REGEX, "");
-
+export const callLambda = (request, setSelectedImage, onFinish) => {
   let lambdaParams = {
     FunctionName: 'yolov5',
     InvocationType: 'RequestResponse',
     LogType: 'None',
-    Payload: JSON.stringify({ ...sampleRequest, "Source": image })
+    Payload: JSON.stringify(request)
   };
 
   lambda.invoke(lambdaParams, (error, response) => {
     if (error) {
       prompt(error)
     } else {
-      // weird trick, this is because server side, we encode before returning, and then lambda service encodes again, so there are 2 levels of string encoding
-      let imageResponse = JSON.parse((JSON.parse(response.Payload))).image
+      let imageResponse = JSON.parse(response.Payload).image
       imageResponse = 'data:image/jpeg;base64,'.concat(imageResponse)
       setSelectedImage(imageResponse)
     }
+    onFinish()
   })
 }
 
