@@ -16,8 +16,8 @@ const MODEL_OPTIONS = [
 ]
 
 
-export const ModelSelector = ({setSelectedModel}) => {
-    return <Select onChange={(event) => {
+export const ModelSelector = ({setSelectedModel, selectedModel}) => {
+    return <Select value={selectedModel} onChange={(event) => {
     console.log(event.target)
     setSelectedModel(event.target.value)}}>
         {MODEL_OPTIONS.map(({value, name}) => (

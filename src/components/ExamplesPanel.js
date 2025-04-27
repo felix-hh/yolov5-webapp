@@ -5,7 +5,7 @@ import {
   Image, 
   useColorModeValue
 } from '@chakra-ui/react';
-import imageData from '../examples/json/result.json'
+import imageData from '../examples/json/result2.json'
 
 export const ExamplesPanel = ({onExampleImageClick}) =>{
   const gridColor = useColorModeValue('black', 'white')

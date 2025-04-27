@@ -1,34 +1,31 @@
-import AWS, { Credentials, } from 'aws-sdk'
-import { keys } from '../secrets'
-
-const DEFAULT_REGION = 'us-east-1'
-
-// Configure AWS SDK for JavaScript
-const credentials = new Credentials(keys.aws_access_key_id, keys.aws_secret_access_key)
-const lambda = new AWS.Lambda({
-  credentials: credentials,
-  region: DEFAULT_REGION,
-  apiVersion: '2015-03-31',
-})
-
 export const callLambda = (request, setSelectedImage, onFinish) => {
-  let lambdaParams = {
-    FunctionName: 'yolov5',
-    InvocationType: 'RequestResponse',
-    LogType: 'None',
-    Payload: JSON.stringify(request)
-  };
-
-  lambda.invoke(lambdaParams, (error, response) => {
-    if (error) {
-      prompt(error)
-    } else {
-      let imageResponse = JSON.parse(response.Payload).image
-      imageResponse = 'data:image/jpeg;base64,'.concat(imageResponse)
-      setSelectedImage(imageResponse)
-    }
-    onFinish()
+  const lambdaUrl = 'https://qebgbzgoe4szfiwmsixof7zxb40cbruy.lambda-url.us-east-1.on.aws/';
+  
+  fetch(lambdaUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(request)
   })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then(data => {
+      let imageResponse = data.image;
+      imageResponse = 'data:image/jpeg;base64,'.concat(imageResponse);
+      setSelectedImage(imageResponse);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      prompt(error);
+    })
+    .finally(() => {
+      onFinish();
+    });
 }
 
 export function download(content, fileName, contentType) {

@@ -21,7 +21,7 @@ class App extends React.Component {
     this.state = {
       uploadedImage: undefined,
       selectedImage: undefined,
-      selectedModel: 'yolov5s',
+      selectedModel: 'granular',
       iouThreshold: .45,
       confidenceThreshold: .25
     }
@@ -113,6 +113,7 @@ class App extends React.Component {
           {/* Config pannel */}
           <Flex flexDir='column' alignItems='center' w={['100%', '30%']} h={['100%']} overflow='auto'>
             <ConfigPanel setSelectedModel={this.setSelectedModel}
+              selectedModel={this.state.selectedModel}
               onSubmit={this.onSubmit}
               onDownload={this.onDownload}
               confidenceThreshold={this.state.confidenceThreshold}

@@ -28,6 +28,7 @@ export const ConfigPanel = ({ setSelectedModel,
     onSubmit,
     onDownload,
     isImageLoaded,
+    selectedModel,
     requestTxt }) => {
 
     const [isLoadingRequest, setLoadingRequest] = useBoolean(false)
@@ -48,7 +49,7 @@ export const ConfigPanel = ({ setSelectedModel,
             <Text>You can choose between default parameters for normal images and weights tailored for medical instruments (scalpels, tweezers and scissors)</Text>
             </Flex>
             {/* select config */}
-            <ModelSelector setSelectedModel={setSelectedModel} />
+            <ModelSelector setSelectedModel={setSelectedModel} selectedModel={selectedModel} />
             <Flex width='inherit' flexDir='column' alignItems='stretch'>
                 <Text>Confidence: {confidenceThreshold}</Text>
                 <Slider

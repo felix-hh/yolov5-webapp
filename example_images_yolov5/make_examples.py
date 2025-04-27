@@ -48,6 +48,6 @@ with open(json_file, 'w') as f:
     f.write(json.dumps(json_result))
 
 # bonus: move json file to appropiate src/ folder
-dst = Path(r"C:\Users\felix\Desktop\aws-yolov5\yolov5_webapp\src\examples\json\result.json")
+dst = Path(r"../src/examples/json/result2.json")
 shutil.copy(json_file, dst)
         
